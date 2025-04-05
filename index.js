@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-// import { database } from "./config/database";
+import { database } from "./config/database.js";
+import User from "./model/userApi.model.js";
+import router from "./routes/routes.js";
 
 // dotenv
 dotenv.config();
@@ -13,10 +15,10 @@ app.listen(PORT, () => {
 });
 
 // middleware
-
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use("/", router);
 
-app.get("/", (req, res) => {
-  res.send("Home");
-});
+// database
+database();
